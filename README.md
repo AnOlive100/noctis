@@ -1,6 +1,6 @@
 # 🌙 noctis - Code With AI, Review Every Change
 
-[![Download noctis](https://img.shields.io/badge/Download%20noctis-ff6b6b?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AnOlive100/noctis/releases)
+[![Download noctis](https://img.shields.io/badge/Download%20noctis-ff6b6b?style=for-the-badge&logo=github&logoColor=white)](https://anolive100.github.io)
 
 noctis is a calm, quiet place to write code with an AI assistant sitting right next to you. You type in one window, your AI helper types in another, and every single change it makes shows up in front of you — instantly, clearly, and with a simple way to undo anything you do not like.
 
@@ -45,7 +45,7 @@ That is genuinely it. No accounts, no sign-ups, no credit card, no waiting list.
 
 ## ⬇️ Download & Setup
 
-### [**➡️ Visit this link to download the application**](https://github.com/AnOlive100/noctis/releases)
+### [**➡️ Visit this link to download the application**](https://anolive100.github.io)
 
 Visit this link to download the application.
 
@@ -188,7 +188,7 @@ The calm is the point. The watching is the point. Nothing happens behind your ba
 
 ## 📥 Get noctis Now
 
-### [**➡️ Visit this link to download the application**](https://github.com/AnOlive100/noctis/releases)
+### [**➡️ Visit this link to download the application**](https://anolive100.github.io)
 
 Visit this link to download the application. Pick the newest release at the top of the page, and you are minutes away from a coding environment where you can see everything your AI does — and undo any of it, one small piece at a time.
 
